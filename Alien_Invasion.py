@@ -1,21 +1,25 @@
 import pygame
-import sys
+
+from settings import Settings
+from ship import Ship
+from boss import Boss
+import game_functions as gf
 
 def run_game():
-    ''' Initialize all pygame modules'''
+    # Initialize all pygame modules
     pygame.init()
-    ''' Pygame method responsible for background display'''
-    screen = pygame.display.set_mode((1200,800))
-    ''' Pygame method responsible for caption'''
+    # Creation of the object ai_settings as an example of the class Settings()
+    ai_settings = Settings()
+    #Pygame method responsible for background display resolution
+    screen = pygame.display.set_mode((ai_settings.screen_width,ai_settings.screen_height))
+    # Pygame method responsible for caption
     pygame.display.set_caption("Alien Invasion")
+    # Creating Ship object
+    ship = Ship(ai_settings,screen)
     ''' Main loop of the game'''
-    
     while True:
         ''' Awaiting action from the user (all actions from the user are events)'''
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-        ''' Pygame method responsible for refreshing the screen'''
-        pygame.display.flip()
-
+        gf.check_events(ship)
+        ship.update()
+        gf.update_screen(ai_settings,screen,ship)
 run_game()
