@@ -2,7 +2,6 @@ import pygame
 
 from settings import Settings
 from ship import Ship
-from boss import Boss
 import game_functions as gf
 
 def run_game():
