@@ -9,7 +9,7 @@ def run_game():
     pygame.init()
     # Creation of the object ai_settings as an example of the class Settings()
     ai_settings = Settings()
-    #Pygame method responsible for background display resolution
+    # Pygame method responsible for background display resolution
     screen = pygame.display.set_mode((ai_settings.screen_width,ai_settings.screen_height))
     # Pygame method responsible for caption
     pygame.display.set_caption("Alien Invasion")
