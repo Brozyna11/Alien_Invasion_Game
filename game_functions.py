@@ -1,42 +1,44 @@
-import sys,pygame
+import sys
+import pygame
+
 
 def check_keydown_events(event, ship):
-    """ Reaction for pressing the button"""
     if event.key == pygame.K_RIGHT:
         ship.moving_right = True
-        # Moving ship right
-        ship.rect.centerx += 1
+        ship.update()
     if event.key == pygame.K_LEFT:
         ship.moving_left = True
-        # Moving ship left
-        ship.rect.centerx -= 1
+        ship.update()
+    if event.key == pygame.K_UP:
+        ship.moving_up = True
+        ship.update()
+    if event.key == pygame.K_DOWN:
+        ship.moving_down = True
+        ship.update()
 
 def check_keyup_events(event, ship):
     if event.key == pygame.K_RIGHT:
         ship.moving_right = False
     if event.key == pygame.K_LEFT:
         ship.moving_left = False
-
+    if event.key == pygame.K_UP:
+        ship.moving_up = False
+    if event.key == pygame.K_DOWN:
+        ship.moving_down = False
 
 
 def check_events(ship):
-    """reaction for all events initiated by the user"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-        elif event.type == pygame.KEYDOWN:
+        if event.type == pygame.KEYDOWN:
+            print(event.key)
             check_keydown_events(event,ship)
-        elif event.type == pygame.KEYUP:
+        if event.type == pygame.KEYUP:
             check_keyup_events(event,ship)
-        
-def update_screen(ai_settings,screen,ship):
-    ''' Aktualization of all images on the screen and moving to updated screen'''
-    # Refreshing of the screen during each iteration'''
-    ''' Pygame method background color following RGB convention'''
-    screen.fill(ai_settings.bg_color)
-    """ Display ship on the screen"""
-    
+
+def update_screen(settings,screen,ship):
+    screen.fill(settings.bg_color)
     ship.blitme()
-    ''' Pygame method responsible for refreshing the screen'''
     pygame.display.flip()
     
