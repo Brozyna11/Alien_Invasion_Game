@@ -1,7 +1,9 @@
 import pygame
-# Creating Class for a Ship object
+
 class Ship():
+    """ Creating Class for a Ship object """
     def __init__(self,ai_settings,screen):
+        # attributes of the ship object
         self.screen = screen
         self.ai_settings = ai_settings
         self.image = pygame.image.load("spaceship.png")
@@ -18,9 +20,11 @@ class Ship():
         self.moving_down = False
 
     def blitme(self):
+        # special method responsible for display object on the screen
         self.screen.blit(self.image,self.rect)
 
     def update(self):
+        # special method controlling ship movement
         if self.moving_right and self.rect.right < self.screen_rect.right :
             self.centerx += self.ai_settings.ship_speed_factor
         if self.moving_left and self.rect.left > self.screen_rect.left:

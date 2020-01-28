@@ -6,6 +6,7 @@ from alien import Alien
 
 
 def check_keydown_events(event,ai_settings,screen, space_ship, bullets):
+    """ special function reponsible for all actions in the game initiated by the player by pressing key down"""
     if event.key == pygame.K_RIGHT:
         space_ship.moving_right = True
         space_ship.update()
@@ -28,6 +29,7 @@ def check_keydown_events(event,ai_settings,screen, space_ship, bullets):
         sys.exit()
 
 def check_keyup_events(event, space_ship):
+    """ special function reponsible for all actions in the game initiated by the player by pressing key up"""
     if event.key == pygame.K_RIGHT:
         space_ship.moving_right = False
     if event.key == pygame.K_LEFT:
@@ -39,6 +41,7 @@ def check_keyup_events(event, space_ship):
 
 
 def check_events(ai_settings,screen,space_ship,bullets):
+    """ special function calling key up and key down ations"""
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             check_keydown_events(event,ai_settings,screen,space_ship,bullets)
@@ -47,6 +50,7 @@ def check_events(ai_settings,screen,space_ship,bullets):
 
 
 def update_screen(ai_settings,screen,space_ship,aliens,bullets):
+    """ special function responsible for display objects on the screen"""
     screen.fill(ai_settings.bg_color)
     for bullet in bullets.sprites():
         bullet.draw_bullet()
@@ -56,6 +60,7 @@ def update_screen(ai_settings,screen,space_ship,aliens,bullets):
     
 
 def update_bullets(bullets):
+    """ special function making sure that bullets are removed once they cross border of the screen"""
     bullets.update()
     for bullet in bullets.copy():
         if bullet.rect.bottom <= 0:
@@ -66,29 +71,34 @@ def update_bullets(bullets):
             bullets.remove(bullet)
 
 def fire_bullet_straight(ai_settings,screen,space_ship,bullets):
+    """ special function making bullets go straight"""
         if len(bullets) < ai_settings.bullets_allowed:
             # Creation of the new bullet and adding it to the group of bullets
             new_bullet = Bullet_Straight(ai_settings,screen,space_ship)
             bullets.add(new_bullet)
 
 def fire_bullet_right(ai_settings,screen,space_ship,bullets):
+    """ special function making bullets go right"""
         if len(bullets) < ai_settings.bullets_allowed:
             # Creation of the new bullet and adding it to the group of bullets
             new_bullet = Bullet_Right(ai_settings,screen,space_ship)
             bullets.add(new_bullet)
 
 def fire_bullet_left(ai_settings,screen,space_ship,bullets):
+    """ special function making bullets go left"""
         if len(bullets) < ai_settings.bullets_allowed:
             # Creation of the new bullet and adding it to the group of bullets
             new_bullet = Bullet_Left(ai_settings,screen,space_ship)
             bullets.add(new_bullet)
 
 def get_number_aliens_x(ai_settings,alien_width):
+    """ special function to calculate the number of aliens displayed on the screen"""
     available_space_x = ai_settings.width - 2 * alien_width
     number_aliens_x = int(available_space_x / (2 * alien_width))
     return number_aliens_x
 
 def create_alien(ai_settings,screen,aliens,alien_number,row_number):
+    """ special function responsbile for displaying of the alien"""
     alien = Alien(ai_settings,screen)
     alien_width = alien.rect.width 
     alien.x = alien_width + 2 * alien_width * alien_number
@@ -97,6 +107,7 @@ def create_alien(ai_settings,screen,aliens,alien_number,row_number):
     aliens.add(alien)
 
 def create_fleet(ai_settings,screen,space_ship,aliens):
+    """ function related to crating whole fleet of the aliens""""
     alien = Alien(ai_settings,screen)
     number_aliens_x = get_number_aliens_x(ai_settings,alien.rect.width)
     number_rows = get_number_rows(ai_settings,space_ship.rect.height,alien.rect.height)
@@ -107,6 +118,7 @@ def create_fleet(ai_settings,screen,space_ship,aliens):
             create_alien(ai_settings,screen,aliens,alien_number,row_number)
 
 def get_number_rows(ai_settings,ship_height,alien_height):
+    """ special function calculating how many rows of the alien we are able to have in the fleet"""
     available_space_y = (ai_settings.height - (3* alien_height) - ship_height)
     number_rows = int(available_space_y / (2 * alien_height))
     return number_rows

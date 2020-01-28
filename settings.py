@@ -6,7 +6,7 @@ class Settings():
         self.height = 900
         self.bg_color = (0,0,0)
         # Ship settings
-        self.ship_speed_factor = 1
+        self.ship_speed_factor = 5
 
         # Bullet settings
         self.bullet_speed_factor = 2
